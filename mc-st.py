@@ -1,10 +1,9 @@
 import streamlit as st
-from speedtest import Speedtest  # Make sure:  pip install speedtest-cli is installed correctly
-# speedtest-cli==2.1.3 in requirements.txt
+from speedtest import Speedtest  # Ensure correct installation of speedtest-cli
 
 # Function to run the speed test and retrieve detailed information
 def measure_speed():
-    st.write("Retrieving speedtest configuration...")
+    st.write("Retrieving speedtest.net configuration...")
     tester = Speedtest()
     tester.get_best_server()
 
@@ -32,16 +31,15 @@ if st.button("Run Speed Test"):
     with st.spinner("Running speed test..."):
         isp_info, download_speed, upload_speed = measure_speed()
 
-    # Sidebar for Connection Details
-    with st.sidebar:
-        st.header("Connection Details")
-        st.write(f"**ISP**: {isp_info['ISP']}")
-        st.write(f"**IP Address**: {isp_info['IP Address']}")
-        st.write(f"**Server Location**: {isp_info['Server Location']}")
-        st.write(f"**Distance**: {isp_info['Distance']}")
-        st.write(f"**Ping**: {isp_info['Ping']}")
+    # Display ISP information
+    st.subheader("Connection Details")
+    st.write(f"**ISP**: {isp_info['ISP']}")
+    st.write(f"**IP Address**: {isp_info['IP Address']}")
+    st.write(f"**Server Location**: {isp_info['Server Location']}")
+    st.write(f"**Distance**: {isp_info['Distance']}")
+    st.write(f"**Ping**: {isp_info['Ping']}")
 
-    # Display download and upload speeds in main area
+    # Display download and upload speeds
     st.subheader("Speed Test Results")
     st.write(f"**Download Speed**: {download_speed:.2f} Mbps")
     st.write(f"**Upload Speed**: {upload_speed:.2f} Mbps")
